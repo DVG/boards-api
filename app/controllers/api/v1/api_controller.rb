@@ -2,8 +2,13 @@ module Api
   module V1
     class ApiController < ApplicationController
       before_action :authenticate
-      attr_accessor :current_user
       respond_to :json
+
+protected
+
+      def current_user
+        @current_user
+      end
 
 private
 
@@ -13,7 +18,7 @@ private
 
       def authenticate_token
         authenticate_with_http_token do |token, options|
-          current_user = User.find_by(auth_token: token)
+          @current_user = User.find_by(auth_token: token)
         end
       end
 
