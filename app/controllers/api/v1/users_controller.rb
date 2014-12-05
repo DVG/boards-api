@@ -5,7 +5,13 @@ module Api
       skip_before_action :authenticate, only: [:create]
 
       def create
-        render json: User.create!(registration_params), serializer: UserSerializer
+        @user = User.new(registration_params)
+        if @user.save
+          render json: @user, serializer: UserSerializer
+        else
+          render json: { errors: @user.errors }.to_json, status: :unprocessable_entity
+        end
+
       end
 
 private

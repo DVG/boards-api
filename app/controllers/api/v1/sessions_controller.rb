@@ -5,11 +5,11 @@ module Api
       skip_before_action :authenticate
 
       def create
-        user = User.find_by(username: params[:identification])
-        if user && user.authenticate(params[:password])
+        session = Session.new(username: params[:identification], password: params[:password])
+        if session.valid?
           render json: { auth_token: user.auth_token, current_username: user.username }, status: :ok
         else
-          render json: { error: "Access Denied" }, status: 401
+          render json: { errors: session.errors }.to_json, status: 401
         end
       end
 
