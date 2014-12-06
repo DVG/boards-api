@@ -1,6 +1,6 @@
 class Session
   include ActiveModel::Model
-  attr_accessor :username, :password
+  attr_accessor :username, :password, :user
 
   validate :authorized
   validates :username,
@@ -17,6 +17,8 @@ class Session
     user = User.find_by(username: self.username)
     unless user && user.authenticate(self.password)
       errors.add(:base, "Access Denied")
+    else
+      @user = user
     end
   end
 end
