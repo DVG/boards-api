@@ -7,7 +7,8 @@ module Api
       end
 
       def create
-        @project = current_user.projects.build(project_params)
+        @project = Project.new(project_params)
+        @project.users << current_user
         if @project.save
           render json: @project
         else

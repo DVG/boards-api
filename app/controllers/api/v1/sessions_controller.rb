@@ -8,7 +8,7 @@ module Api
         session = Session.new(username: params[:identification], password: params[:password])
         if session.valid?
           user = session.user
-          render json: { auth_token: user.auth_token, username: user.username, email: user.email }, status: :ok
+          render json: { auth_token: user.auth_token, username: user.username, email: user.email }.to_json, status: :ok
         else
           render json: { errors: session.errors }.to_json, status: 401
         end

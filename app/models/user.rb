@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   before_save :encrypt_password, :set_auth_token
   has_secure_password
-  has_and_belongs_to_many :projects
+  has_many :memberships
+  has_many :projects, through: :memberships
 
   validates :username,
     uniqueness: true,

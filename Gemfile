@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.5'
 gem 'sqlite3'
 gem 'spring',        group: :development
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.9.0'
 gem 'bcrypt'
 
 group :development, :test do
